@@ -4,22 +4,32 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 20px 0 10px;
+    padding: 0 30px 0 10px;
+}
+
+.navbar a {
+    text-decoration: none;
 }
 
 .navbar__logo {
     display: flex;
     align-items: center;
-    flex: 1;
 }
 
 .navbar__logo img {
     max-height: 7vh;
     margin-right: -10px;
+    cursor: pointer;
+}
+
+.navbar__logo h1 {
+    font-family: 'Roboto Slab', serif;
+    color: #2D2D32;
+    cursor: pointer;
 }
 
 .navbar__search {
-    flex: 2;
+    width: 70%;
 }
 
 .navbar__search input {
@@ -30,6 +40,7 @@
     border: none;
     border-radius: 7px;
     color: white;
+    font-family: sans-serif;
 }
 
 .navbar__search > .MuiSvgIcon-root {
@@ -39,8 +50,14 @@
 }
 
 .navbar__login {
-    flex: 1;
     text-align: right;
+}
+
+.navbar__login p {
+    font-size: 1rem;
+    color: #2D2D32;
+    font-weight: bold;
+    font-family: sans-serif;
 }
 
 @media screen and (max-width: 768px) {
@@ -51,12 +68,47 @@
     .navbar__search {
         flex: 0;
     }
-
+    
     .navbar__search input {
         display: none;
     }
 
-    .navbar__search > .MuiSvgIcon-root {
+    .navbar__search .navbar__searchIcon {
         display: block;
+    }
+
+    .navbar-search {
+        display: block;
+        padding: 10px;
+    }
+
+    .navbar__login {
+        padding-left: 10px;
+    }
+
+    .navbar-search .navbar__logo, .navbar-search .navbar__login {
+        display: none;
+    }
+
+    .navbar-search .navbar__search {
+        position: relative;
+        width: 100%;
+    }
+
+    .navbar-search .navbar__searchIcon {
+        display: none;
+    }
+
+    .navbar-search .navbar__closeIcon {
+        display: block;
+        position: absolute;
+        top: 8px;
+        right: 10px;
+        color: white;
+    }
+
+    .navbar-search .navbar__search input {
+        display: block;
+        width: 100%;
     }
 }
