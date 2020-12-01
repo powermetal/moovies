@@ -1,0 +1,127 @@
+.search_results {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.search_results__card {
+    display: flex;
+    background-color: #f4f5f9;
+    width: 40%;
+    margin: 10px;
+    max-height: 200px;
+    border-radius: 7px;
+    overflow: hidden;
+    box-shadow: 0px 3px 3px rgba(0, 0, 0, 0.2);
+}
+
+.search_results__poster img{
+    object-fit: contain;
+    height: 200px;
+}
+
+.search_results__info {
+    padding: 10px;
+}
+
+.search_results__header {
+    padding-left: 10px;
+}
+
+.search_results__header h2 {
+    color: #c1ab77;
+    font-family: sans-serif;
+}
+
+.search_results__header p {
+    padding-top: 5px;
+    font-family: sans-serif;
+    font-size: 13px;
+    color: #919191;
+    font-weight: bold;
+}
+
+.search_results__overview {
+    padding: 10px;
+    max-height: 150px;
+    
+  }
+
+.search_results__overview p{
+    font-family: sans-serif;
+    font-size: 1rem;
+    color: black;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+}
+
+@media screen and (max-width: 1024px) {
+    .search_results__overview{
+        display: none;
+    }
+}
+
+@media screen and (max-width: 720px) {
+    .search_results__overview{
+        display: none;
+    }
+
+    .search_results__card {
+        flex-direction: column;
+        max-height: 100%;
+        width: 60%;
+    }
+
+    .search_results__poster {
+        align-self: center;
+    }
+
+    .search_results__poster img {
+        height: 650px;
+    }
+}
+
+
+@media screen and (max-width: 540px) {
+    .search_results__overview{
+        display: none;
+    }
+
+    .search_results__card {
+        flex-direction: column;
+        max-height: 100%;
+        width: 60%;
+    }
+
+    .search_results__poster {
+        align-self: center;
+    }
+
+    .search_results__poster img {
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .search_results__overview{
+        display: none;
+    }
+
+    .search_results__card {
+        flex-direction: column;
+        max-height: 100%;
+        width: 60%;
+    }
+
+    .search_results__poster {
+        align-self: center;
+    }
+
+    .search_results__poster img {
+        height: 370px;
+    }
+}

@@ -1,0 +1,32 @@
+.modal-yt {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.modal-yt:focus {
+    outline: none;
+}
+
+.modal-yt__header {
+    background-color: var(--primary-color);
+    height: 40px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.modal-yt__header h3 {
+    margin-left: 10px;
+    color: white;
+    font-family: sans-serif;
+}
+
+
+.modal-yt__header > .MuiSvgIcon-root {
+    position: absolute;
+    right: 10px;
+    color: white;
+    cursor: pointer;
+}

@@ -1,5 +1,5 @@
 :root {
-    --primary-color: #EADC64;
+    --primary-color: #526081;
 }
 
 * {
@@ -9,5 +9,9 @@
 }
 
 body {
-    background-color: #2D2D32;
+    background-color: #ffffff;
+}
+
+a {
+    text-decoration: none;
 }
