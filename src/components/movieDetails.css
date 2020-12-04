@@ -142,3 +142,9 @@
 .movie_details__director span {
     font-size: 14px;
 }
+
+.movie_details__cast {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}

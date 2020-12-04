@@ -56,7 +56,9 @@ const toMovieDetails = (details, credits, videos) => {
         userScore: details.vote_average,
         duration: details.runtime,
         director: toDirector(credits.crew),
-        videos: videos.map(video => toVideo(video))
+        videos: videos.map(video => toVideo(video)),
+        cast: credits.cast,
+        crew: credits.crew
     }
 }
 

@@ -10,7 +10,7 @@ const YoutubeModal = (props) => {
         height: '800px'
     }
     return (
-        <Modal disableAutoFocus disableEnforceFocus open={props.open} onClose={props.onClose}>
+        <Modal open={props.open} onClose={props.onClose}>
             <div className="modal-yt">
                 <div className="modal-yt__header">
                     <h3>{props.title}</h3>

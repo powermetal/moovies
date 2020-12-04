@@ -8,6 +8,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import StarIcon from '@material-ui/icons/Star';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YoutubeModal from '../modals/YoutubeModal';
+import PaginatedContainer from './PaginatedContainer/PaginatedContainer';
 
 const MovieDetails = (props) => {
     //Inicializar State con valores razonables por ejemplo Video con una lista vacia
@@ -97,6 +98,9 @@ const MovieDetails = (props) => {
                         {renderDirector()}
                     </div>
                 </div>
+            </div>
+            <div className="movie_details__cast">
+                <PaginatedContainer items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(e => <div style={{ backgroundColor: 'red' }}>{e}</div>)} pageLimit={4} />
             </div>
         </div>
     )
