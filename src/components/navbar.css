@@ -11,6 +11,10 @@
     text-decoration: none;
 }
 
+.navbar a:focus {
+    outline: none;
+}
+
 .navbar__logo {
     display: flex;
     align-items: center;
@@ -26,6 +30,19 @@
     font-family: 'Roboto Slab', serif;
     color: white;
     cursor: pointer;
+}
+
+.navbar__logo:hover {
+    animation: logo 2s infinite;
+}
+
+@keyframes logo {
+    from {
+        filter: hue-rotate(0deg)
+    }
+    to {
+        filter: hue-rotate(360deg)
+    }
 }
 
 .navbar__search {

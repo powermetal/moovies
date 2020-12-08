@@ -1,5 +1,6 @@
 import axios from 'axios';
 import noimg from '../images/noimg.png';
+import nocastimg from '../images/nocastimg.png';
 
 const KEY = '57a5a9ae326f1c29514a7197e6eb9ccd';
 const POSTER_SIZE = 'w500'
@@ -17,14 +18,20 @@ const movieImage = (path, size = 'original') => {
     return noimg;
 }
 
-const toGenre = (genre) => {
+const personImage = (path) => {
+    if (path !== null)
+        return `https://image.tmdb.org/t/p/w138_and_h175_face${path}`
+    return nocastimg;
+}
+
+const toGenre = genre => {
     return {
         id: genre.id,
         name: genre.name
     }
 }
 
-const toVideo = (video) => {
+const toVideo = video => {
     return {
         key: video.key,
         site: video.site,
@@ -32,7 +39,7 @@ const toVideo = (video) => {
     }
 }
 
-const toDirector = (crew) => {
+const toDirector = crew => {
     const director = crew.find(e => e.job === 'Director')
     return director ? director.name : ''
 }
@@ -47,6 +54,22 @@ const toMovie = m => {
     }
 }
 
+const toCast = p => {
+    return {
+        name: p.name,
+        role: p.character,
+        photo: personImage(p.profile_path)
+    }
+}
+
+const toCrew = p => {
+    return {
+        name: p.name,
+        role: p.job,
+        photo: personImage(p.profile_path)
+    }
+}
+
 const toMovieDetails = (details, credits, videos) => {
     return {
         ...toMovie(details),
@@ -57,8 +80,8 @@ const toMovieDetails = (details, credits, videos) => {
         duration: details.runtime,
         director: toDirector(credits.crew),
         videos: videos.map(video => toVideo(video)),
-        cast: credits.cast,
-        crew: credits.crew
+        cast: credits.cast.map(p => toCast(p)),
+        crew: credits.crew.map(p => toCrew(p))
     }
 }
 
@@ -75,7 +98,13 @@ export const getMovie = id => {
         }))
 }
 
-export const searchMovie = (query) => {
-    return moviedb.get('/search/movie', { params: { query } })
-        .then(response => response.data.results.map(m => toMovie(m)));
+export const searchMovie = (query, page) => {
+    return moviedb.get('/search/movie', { params: { query, page } })
+        .then(response => {
+            return {
+                results: response.data.results.map(m => toMovie(m)),
+                page: response.data.page,
+                totalPages: response.data.total_pages
+            }
+        })
 }

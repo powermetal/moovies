@@ -143,8 +143,29 @@
     font-size: 14px;
 }
 
-.movie_details__cast {
+.movie_details__pagination {
     display: flex;
     justify-content: center;
     margin-top: 20px;
+}
+
+.movie_details__pagination__header {
+    display: flex;
+    justify-content: space-between;
+    width: 60%;
+    flex-direction: column;
+}
+
+.movie_details__pagination__buttons button{
+    margin-right: 10px;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color: white;
+    border: 0;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+.movie_details__pagination__buttons button:focus{
+    outline: none;
 }

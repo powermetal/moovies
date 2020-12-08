@@ -3,18 +3,34 @@ import { searchMovie } from '../apis/moviedb';
 import qs from 'qs';
 import './searchResults.css'
 import { Link } from 'react-router-dom';
+import useInfiniteScroll from 'react-infinite-scroll-hook';
 
 const SearchResults = (props) => {
     const [movies, setMovies] = useState([])
+    const [loading, setLoading] = useState(false)
+    const [resultsData, setResultsData] = useState({ page: 1 })
 
-    useEffect(() => {
+    const handleLoadMore = () => {
+        setLoading(true)
         const searchMovies = async () => {
             const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })['q']
-            const results = await searchMovie(query)
-            setMovies(results)
+            const response = await searchMovie(query, resultsData.nextPage)
+            setLoading(false)
+            setMovies([...movies, ...response.results])
+            setResultsData({
+                page: response.page,
+                nextPage: response.page < response.totalPages ? response.page + 1 : response.page,
+                totalPages: response.totalPages
+            })
         }
         searchMovies()
-    }, [props.location.search])
+    }
+
+    const infiniteRef = useInfiniteScroll({
+        loading,
+        hasNextPage: !resultsData.totalPages || resultsData.page < resultsData.totalPages,
+        onLoadMore: handleLoadMore,
+    });
 
     const toMovieCard = m => (
         <div className="search_results__card">
@@ -34,7 +50,7 @@ const SearchResults = (props) => {
     )
 
     return (
-        <div className="search_results">
+        <div className="search_results" ref={infiniteRef}>
             {movies.map(m => toMovieCard(m))}
         </div>
     )

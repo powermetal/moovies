@@ -9,11 +9,17 @@ import StarIcon from '@material-ui/icons/Star';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import YoutubeModal from '../modals/YoutubeModal';
 import PaginatedContainer from './PaginatedContainer/PaginatedContainer';
+import PeopleCard from './PeopleCard';
 
 const MovieDetails = (props) => {
-    //Inicializar State con valores razonables por ejemplo Video con una lista vacia
-    const [movieDetails, setMovieDetails] = useState({})
+    const [movieDetails, setMovieDetails] = useState({
+        genres: [],
+        videos: [],
+        director: '',
+
+    })
     const [openTrailer, setOpenTrailer] = useState(false)
+    const [people, setPeople] = useState('cast')
 
     useEffect(() => {
         const getMovieDetails = async () => {
@@ -26,7 +32,7 @@ const MovieDetails = (props) => {
 
 
     const getGenres = () => {
-        return movieDetails.genres && movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
+        return movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
             .reduce((genreList, genre, index) => {
                 genreList.push(genre)
                 if (index !== movieDetails.genres.length - 1)
@@ -40,7 +46,7 @@ const MovieDetails = (props) => {
     }
 
     const renderDirector = () => {
-        if (movieDetails.director && movieDetails.director.length > 0)
+        if (movieDetails.director.length > 0)
             return (
                 <div className="movie_details__director">
                     <h4>{movieDetails.director}</h4>
@@ -50,7 +56,7 @@ const MovieDetails = (props) => {
     }
 
     const renderTrailer = () => {
-        if (movieDetails.videos && movieDetails.videos.length > 0)
+        if (movieDetails.videos.length > 0)
             return (
                 <div className="play_trailer" onClick={e => setOpenTrailer(true)}>
                     <PlayArrowIcon /><p>Play Trailer</p>
@@ -60,8 +66,8 @@ const MovieDetails = (props) => {
 
     return (
         <div className="movie_details">
-            <YoutubeModal open={openTrailer} onClose={() => setOpenTrailer(false)} videoId={movieDetails.videos && movieDetails.videos.length > 0 ? movieDetails.videos[0].key : null} title={movieDetails.title} />
-            <div className="movie_details__header" style={{ backgroundImage: `url(${movieDetails && movieDetails.backdrop})` }}>
+            <YoutubeModal open={openTrailer} onClose={() => setOpenTrailer(false)} videoId={movieDetails.videos.length > 0 ? movieDetails.videos[0].key : null} title={movieDetails.title} />
+            <div className="movie_details__header" style={{ backgroundImage: `url(${movieDetails.backdrop})` }}>
                 <div className="backgroundGradient">
                     <div className="movie_details__poster">
                         <img src={movieDetails.poster} />
@@ -71,7 +77,7 @@ const MovieDetails = (props) => {
                             <h1>{movieDetails.title}</h1>
                             <div className="movie_details__metadata">
                                 <span>{movieDetails.date}</span>
-                                <span> - </span>
+                                <span> | </span>
                                 <span>{getGenres()}</span>
                             </div>
                         </div>
@@ -99,8 +105,17 @@ const MovieDetails = (props) => {
                     </div>
                 </div>
             </div>
-            <div className="movie_details__cast">
-                <PaginatedContainer items={[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map(e => <div style={{ backgroundColor: 'red' }}>{e}</div>)} pageLimit={4} />
+            <div className="movie_details__pagination">
+                <div className="movie_details__pagination__header">
+                    <PaginatedContainer
+                        items={movieDetails[people] && movieDetails[people]
+                            .map(cast => <PeopleCard name={cast.name} role={cast.role} photo={cast.photo} />)}
+                        pageLimit={12}
+                        tabs={[{ value: 'cast', label: 'Cast' }, { value: 'crew', label: 'Crew' }]}
+                        onTabClicked={(tabValue) => setPeople(tabValue)}
+                        minHeight={'669px'}
+                    />
+                </div>
             </div>
         </div>
     )

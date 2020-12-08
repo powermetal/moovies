@@ -1,0 +1,19 @@
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.pagination span {
+    font-family: sans-serif;
+    margin-right: 15px;
+    font-size: 14px;
+}
+
+.pagination .MuiSvgIcon-root {
+    font-size: 2rem;
+    cursor: pointer;
+}
+
+.pagination .MuiSvgIcon-root:hover {
+    color: var(--primary-color);
+}

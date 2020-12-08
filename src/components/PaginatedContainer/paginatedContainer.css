@@ -1,0 +1,44 @@
+.paginated_container {
+    border: 1px solid;
+    border-radius: 7px;
+    padding: 30px;
+    margin-bottom: 10px;
+}
+
+.paginated_container__actions {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+.paginated_container__tab {
+    background-color: transparent;
+    border: none;
+    font-family: sans-serif;
+    font-size: 1rem;
+    font-weight: bold;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.paginated_container__tab:focus {
+    outline: none;
+}
+
+.paginated_container__tab:hover {
+    color: rgb(165, 165, 165);
+}
+
+.paginated_container__tab.active {
+    background-color: rgb(125 141 174);
+    padding: 5px;
+    border-radius: 7px;
+    color: white;
+}
+
+.paginated_container__items {
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 15px;
+    margin-left: 5%;
+}
