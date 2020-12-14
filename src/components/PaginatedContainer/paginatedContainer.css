@@ -2,13 +2,13 @@
     border: 1px solid;
     border-radius: 7px;
     padding: 30px;
-    margin-bottom: 10px;
+    margin-bottom: 1rem;
 }
 
 .paginated_container__actions {
     display: flex;
-    width: 100%;
     justify-content: space-between;
+    margin-bottom: 15px;
 }
 
 .paginated_container__tab {
@@ -36,9 +36,15 @@
     color: white;
 }
 
+.paginated_container__arrows {
+    justify-self: end;
+}
+
 .paginated_container__items {
-    display: flex;
-    flex-wrap: wrap;
-    margin-top: 15px;
-    margin-left: 5%;
+    display: grid; 
+    grid-template: 1fr 1fr / 1fr 1fr 1fr 1fr 1fr;
+}
+
+.paginated_container__item {
+    justify-self: center;
 }

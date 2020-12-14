@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import Pagination from '../Pagination/Pagination'
 import './paginatedContainer.css'
 
-const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked, minHeight }) => {
+const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked }) => {
     const [displayedContent, setDisplayedContent] = useState([])
     const [selectedTab, setSelectedTab] = useState(tabs[0].value)
 
@@ -25,7 +25,7 @@ const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked, mi
     }
 
     return (
-        <div className="paginated_container" style={{ minHeight }}>
+        <div className="paginated_container">
             <div className="paginated_container__actions">
                 <div>
                     {tabs.map(tab => <button className={activeTab(tab)} onClick={e => handleTabClicked(tab)}>{tab.label}</button>)}
@@ -33,9 +33,9 @@ const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked, mi
                 <Pagination key={selectedTab} pageLimit={pageLimit} totalRecords={items.length} onPageChanged={handlePageChange} />
             </div>
             <div className="paginated_container__items">
-                {displayedContent && displayedContent.map(item => <div>{item}</div>)}
+                {displayedContent && displayedContent.map(item => <div className="paginated_container__item">{item}</div>)}
             </div>
-        </div>
+        </div >
     )
 }
 

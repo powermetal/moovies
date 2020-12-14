@@ -10,20 +10,37 @@ const SearchResults = (props) => {
     const [loading, setLoading] = useState(false)
     const [resultsData, setResultsData] = useState({ page: 1 })
 
+    const searchMovies = async (nextPage, onSuccess) => {
+        const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })['q']
+        const response = await searchMovie(query, nextPage)
+        onSuccess(response);
+    }
+
+    const getResultData = (response) => {
+        return {
+            page: response.page,
+            nextPage: response.page < response.totalPages ? response.page + 1 : response.page,
+            totalPages: response.totalPages
+        }
+    }
+
+    useEffect(() => {
+        const onSuccess = (response) => {
+            setMovies(response.results)
+            setResultsData(getResultData(response))
+        }
+
+        searchMovies(1, onSuccess)
+    }, [props.location.search])
+
     const handleLoadMore = () => {
         setLoading(true)
-        const searchMovies = async () => {
-            const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })['q']
-            const response = await searchMovie(query, resultsData.nextPage)
+        const onSuccess = (response) => {
             setLoading(false)
             setMovies([...movies, ...response.results])
-            setResultsData({
-                page: response.page,
-                nextPage: response.page < response.totalPages ? response.page + 1 : response.page,
-                totalPages: response.totalPages
-            })
+            setResultsData(getResultData(response))
         }
-        searchMovies()
+        searchMovies(resultsData.nextPage, onSuccess)
     }
 
     const infiniteRef = useInfiniteScroll({

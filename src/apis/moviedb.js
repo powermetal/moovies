@@ -70,7 +70,14 @@ const toCrew = p => {
     }
 }
 
-const toMovieDetails = (details, credits, videos) => {
+const toKeyword = k => {
+    return {
+        id: k.id,
+        name: k.name
+    }
+}
+
+const toMovieDetails = (details, credits, videos, keywords, images) => {
     return {
         ...toMovie(details),
         backdrop: movieImage(details.backdrop_path),
@@ -81,7 +88,13 @@ const toMovieDetails = (details, credits, videos) => {
         director: toDirector(credits.crew),
         videos: videos.map(video => toVideo(video)),
         cast: credits.cast.map(p => toCast(p)),
-        crew: credits.crew.map(p => toCrew(p))
+        crew: credits.crew.map(p => toCrew(p)),
+        originalLanguage: details.original_language,
+        revenue: details.revenue,
+        status: details.status,
+        budget: details.budget,
+        keywords: keywords.map(k => toKeyword(k)),
+        images: images
     }
 }
 
@@ -89,11 +102,13 @@ export const getMovie = id => {
     const details = moviedb.get(`/movie/${id}`)
     const credits = moviedb.get(`/movie/${id}/credits`)
     const videos = moviedb.get(`/movie/${id}/videos`)
+    const keywords = moviedb.get(`/movie/${id}/keywords`)
+    const images = moviedb.get(`/movie/${id}/images`)
 
-    return axios.all([details, credits, videos])
+    return axios.all([details, credits, videos, keywords, images])
         .then(axios.spread((...responses) => {
-            const [detailsResponse, creditsResponse, videosResponse] = responses
-            const results = toMovieDetails(detailsResponse.data, creditsResponse.data, videosResponse.data.results)
+            const [detailsResponse, creditsResponse, videosResponse, keywordsResponse, imagesResponse] = responses
+            const results = toMovieDetails(detailsResponse.data, creditsResponse.data, videosResponse.data.results, keywordsResponse.data.keywords, imagesResponse.data)
             return results;
         }))
 }
