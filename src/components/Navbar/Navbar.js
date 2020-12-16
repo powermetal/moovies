@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import './navbar.css';
 import { Link, useHistory } from 'react-router-dom';
-import logo from '../images/logo.png';
+import logo from '../../images/logo.png';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
 

@@ -1,10 +1,10 @@
 import React from 'react';
-import Home from './Home';
-import SearchResults from './SearchResults';
+import Home from './Home/Home';
+import SearchResults from './SearchResults/SearchResults';
 import { BrowserRouter, Route } from 'react-router-dom';
-import Navbar from './Navbar'
+import Navbar from './Navbar/Navbar'
 import './App.css';
-import MovieDetails from './MovieDetails';
+import MovieDetails from './MovieDetails/MovieDetails';
 
 const App = () => {
   return (
