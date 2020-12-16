@@ -25,7 +25,6 @@ const Pagination = ({ pageLimit, totalRecords, onPageChanged }) => {
             onPageChanged(currentPage, (currentPage - 1) * pageLimit, (currentPage - 1) * pageLimit + pageLimit - 1)
     }
 
-
     const onNextPage = () => {
         setState(prevState => {
             const newCurrent = prevState.currentPage !== totalPages ? prevState.currentPage + 1 : prevState.currentPage

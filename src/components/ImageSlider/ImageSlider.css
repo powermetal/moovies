@@ -1,0 +1,48 @@
+.slider {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--primary-color);
+    padding: 19px;
+    margin-bottom: 2rem;
+}
+
+.image {
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider .MuiSvgIcon-root {
+    font-size: 6rem;
+    top: 50%;
+    color: #ffffff;
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.slider .MuiSvgIcon-root:hover {
+    color: #aaaaaa;
+}
+
+
+.left-arrow {
+    left: 200px;
+}
+
+.right-arrow {
+    right: 200px;
+}
+
+.slide {
+    opacity: 0;
+    transition-duration: 1s ease;
+    height: 480px;
+}
+
+.slide.active {
+    opacity: 1;
+    transition-duration: 1s;
+    transform: scale(1.08)
+}

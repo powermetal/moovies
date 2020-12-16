@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
-import Pagination from '../Pagination/Pagination'
-import './paginatedContainer.css'
+import React, { useState, useEffect } from 'react';
+import Pagination from '../Pagination/Pagination';
+import './paginatedContainer.css';
 
 const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked }) => {
     const [displayedContent, setDisplayedContent] = useState([])

@@ -11,6 +11,7 @@ import YoutubeModal from '../modals/YoutubeModal';
 import PaginatedContainer from './PaginatedContainer/PaginatedContainer';
 import PeopleCard from './PeopleCard';
 import accounting from 'accounting-js';
+import ImageSlider from './ImageSlider/ImageSlider';
 
 const MovieDetails = (props) => {
     const [movieDetails, setMovieDetails] = useState({
@@ -19,8 +20,10 @@ const MovieDetails = (props) => {
         director: '',
         keywords: [],
         cast: [],
-        crew: []
+        crew: [],
+        images: { backdrops: [], posters: [] }
     })
+
     const [openTrailer, setOpenTrailer] = useState(false)
     const [people, setPeople] = useState('cast')
 
@@ -32,7 +35,6 @@ const MovieDetails = (props) => {
         }
         getMovieDetails()
     }, [])
-
 
     const getGenres = () => {
         return movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
@@ -138,6 +140,10 @@ const MovieDetails = (props) => {
                         <div className="movie_details__keywords">{renderKeywords()}</div>
                     </div>
                 </div>
+            </div>
+            <div className="movie_details__slider">
+                <h1>Media</h1>
+                <ImageSlider images={[...movieDetails.images.backdrops.slice(0, 3), ...movieDetails.images.posters.slice(0, 3)]} />
             </div>
         </div>
     )

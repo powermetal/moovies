@@ -215,3 +215,15 @@
     padding: 5px;
     border-radius: 3px;
 }
+
+.movie_details__slider {
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie_details__slider h1 {
+    display: flex;
+    justify-content: center;
+}

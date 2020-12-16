@@ -39,6 +39,13 @@ const toVideo = video => {
     }
 }
 
+const toImages = images => {
+    return {
+        backdrops: images.backdrops.map(i => movieImage(i.file_path)),
+        posters: images.posters.map(i => movieImage(i.file_path))
+    }
+}
+
 const toDirector = crew => {
     const director = crew.find(e => e.job === 'Director')
     return director ? director.name : ''
@@ -94,7 +101,7 @@ const toMovieDetails = (details, credits, videos, keywords, images) => {
         status: details.status,
         budget: details.budget,
         keywords: keywords.map(k => toKeyword(k)),
-        images: images
+        images: toImages(images)
     }
 }
 
