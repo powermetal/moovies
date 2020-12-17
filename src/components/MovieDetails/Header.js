@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AddIcon from '@material-ui/icons/Add';
@@ -6,6 +5,7 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StarIcon from '@material-ui/icons/Star';
+import './Header.css'
 
 const Header = ({ movieDetails, onPlayTrailer }) => {
 
@@ -43,43 +43,41 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
     }
 
     return (
-        <div>
-            <div className="movie_details__header" style={{ backgroundImage: `url(${movieDetails.backdrop})` }}>
-                <div className="backgroundGradient">
-                    <div className="movie_details__poster">
-                        <img src={movieDetails.poster} />
+        <div className="movie_details__header" style={{ backgroundImage: `url(${movieDetails.backdrop})` }}>
+            <div className="backgroundGradient">
+                <div className="movie_details__poster">
+                    <img src={movieDetails.poster} />
+                </div>
+                <div className="movie_details__info">
+                    <div className="movie_details__title">
+                        <h1>{movieDetails.title}</h1>
+                        <div className="movie_details__metadata">
+                            <span>{movieDetails.date}</span>
+                            <span> | </span>
+                            <span>{getGenres()}</span>
+                        </div>
                     </div>
-                    <div className="movie_details__info">
-                        <div className="movie_details__title">
-                            <h1>{movieDetails.title}</h1>
-                            <div className="movie_details__metadata">
-                                <span>{movieDetails.date}</span>
-                                <span> | </span>
-                                <span>{getGenres()}</span>
+                    <div className="movie_details__actions">
+                        <div className="userScore">
+                            <div className="circleScore">
+                                <span>{formatScore()}</span>
                             </div>
+                            <p>User Score</p>
                         </div>
-                        <div className="movie_details__actions">
-                            <div className="userScore">
-                                <div className="circleScore">
-                                    <span>{formatScore()}</span>
-                                </div>
-                                <p>User Score</p>
-                            </div>
-                            <div className="circle"><AddIcon /></div>
-                            <div className="circle"><FavoriteIcon /></div>
-                            <div className="circle"><BookmarkIcon /></div>
-                            <div className="circle"><StarIcon /></div>
-                            {renderTrailer()}
-                        </div>
-                        <div className="movie_details__tagline">
-                            {movieDetails.tagline}
-                        </div>
-                        <div className="movie_details__overview">
-                            <h2>Overview</h2>
-                            <span>{movieDetails.overview}</span>
-                        </div>
-                        {renderDirector()}
+                        <div className="circle"><AddIcon /></div>
+                        <div className="circle"><FavoriteIcon /></div>
+                        <div className="circle"><BookmarkIcon /></div>
+                        <div className="circle"><StarIcon /></div>
+                        {renderTrailer()}
                     </div>
+                    <div className="movie_details__tagline">
+                        {movieDetails.tagline}
+                    </div>
+                    <div className="movie_details__overview">
+                        <h2>Overview</h2>
+                        <span>{movieDetails.overview}</span>
+                    </div>
+                    {renderDirector()}
                 </div>
             </div>
         </div>

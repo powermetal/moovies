@@ -23,16 +23,20 @@ const ImageSlider = ({ images }) => {
     return (
         <div className="slider">
             <NavigateBeforeIcon className="left-arrow" onClick={onPreviousSlide} />
+            <div className="slide">
+                <img className="slider__image" src={images[current]} />
+            </div>
             <NavigateNextIcon className="right-arrow" onClick={onNextSlide} />
-            {images.map((image, index) => {
-                return (
-                    <div className={current === index ? "slide active" : "slide"}>
-                        {current === index && <img className="image" src={image} />}
-                    </div>
-                )
-            })}
         </div>
     )
 }
 
 export default ImageSlider
+
+/*{images.map((image, index) => {
+    return (
+        <div className={current === index ? "slide active" : "slide"}>
+            {current === index && <img className="image" src={image} />}
+        </div>
+    )
+})}*/

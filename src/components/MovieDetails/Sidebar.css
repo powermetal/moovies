@@ -1,0 +1,30 @@
+.movie_details__sidebar {
+    max-width: 250px;
+}
+
+.movie_details__sidebar h4 {
+    color: #141414;
+}
+
+.movie_details__sidebar p {
+    margin-bottom: 1rem;
+    font-size: 14px;
+}
+
+.keywords {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+}
+
+.movie_details__keywords {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.movie_details__keyword {
+    margin: 1px 0px 1px 2px;
+    background-color: var(--primary-color);
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+}
