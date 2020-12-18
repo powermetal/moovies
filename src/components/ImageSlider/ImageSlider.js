@@ -32,11 +32,3 @@ const ImageSlider = ({ images }) => {
 }
 
 export default ImageSlider
-
-/*{images.map((image, index) => {
-    return (
-        <div className={current === index ? "slide active" : "slide"}>
-            {current === index && <img className="image" src={image} />}
-        </div>
-    )
-})}*/

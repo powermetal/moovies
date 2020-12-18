@@ -31,6 +31,17 @@ const MovieDetails = (props) => {
         getMovieDetails()
     }, [])
 
+    const renderSlider = () => {
+        if (movieDetails.images.backdrops.length > 0) {
+            return (
+                <div className="movie_details__img">
+                    <ImageSlider images={movieDetails.images.backdrops} />
+                </div>
+            )
+        } else
+            return null
+    }
+
     return (
         <div className="movie_details">
             <YoutubeModal open={openTrailer} onClose={() => setOpenTrailer(false)} videoId={movieDetails.videos.length > 0 ? movieDetails.videos[0].key : null} title={movieDetails.title} />
@@ -45,9 +56,7 @@ const MovieDetails = (props) => {
                         onTabClicked={(tabValue) => setPeople(tabValue)}
                     />
                 </div>
-                <div className="movie_details__img">
-                    <ImageSlider images={movieDetails.images.backdrops} />
-                </div>
+                {renderSlider()}
                 <div className="movie_details__right"><Sidebar movieDetails={movieDetails} /></div>
             </div>
         </div>

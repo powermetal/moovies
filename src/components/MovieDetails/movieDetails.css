@@ -6,7 +6,7 @@
 
 .movie_details__main {
     display: grid;
-    grid-template: 1fr 1fr /  15% 5fr 1fr 15%;
+    grid-template: 1fr auto /  15% 5fr 1fr 15%;
     column-gap: 2rem;
     row-gap: 2rem;
     margin-top: 2rem;
@@ -22,6 +22,7 @@
     grid-row: 2/3;
     height: 580px;
     justify-self: center;
+    margin-bottom: 2rem;
 }
 
 .movie_details__right {
