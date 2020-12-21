@@ -57,7 +57,8 @@ const toMovie = m => {
         title: m.title,
         overview: m.overview,
         date: m.release_date,
-        poster: movieImage(m.poster_path, POSTER_SIZE)
+        poster: movieImage(m.poster_path, POSTER_SIZE),
+        rating: m.vote_average * 10
     }
 }
 
@@ -84,7 +85,7 @@ const toKeyword = k => {
     }
 }
 
-const toMovieDetails = (details, credits, videos, keywords, images) => {
+const toMovieDetails = (details, credits, videos, keywords, images, relatedMovies) => {
     return {
         ...toMovie(details),
         backdrop: movieImage(details.backdrop_path),
@@ -101,7 +102,8 @@ const toMovieDetails = (details, credits, videos, keywords, images) => {
         status: details.status,
         budget: details.budget,
         keywords: keywords.map(k => toKeyword(k)),
-        images: toImages(images)
+        images: toImages(images),
+        relatedMovies: relatedMovies.map(r => toMovie(r))
     }
 }
 
@@ -111,11 +113,19 @@ export const getMovie = id => {
     const videos = moviedb.get(`/movie/${id}/videos`)
     const keywords = moviedb.get(`/movie/${id}/keywords`)
     const images = moviedb.get(`/movie/${id}/images`)
+    const relatedMovies = moviedb.get(`/movie/${id}/similar`)
 
-    return axios.all([details, credits, videos, keywords, images])
+    return axios.all([details, credits, videos, keywords, images, relatedMovies])
         .then(axios.spread((...responses) => {
-            const [detailsResponse, creditsResponse, videosResponse, keywordsResponse, imagesResponse] = responses
-            const results = toMovieDetails(detailsResponse.data, creditsResponse.data, videosResponse.data.results, keywordsResponse.data.keywords, imagesResponse.data)
+            const [detailsResponse, creditsResponse, videosResponse, keywordsResponse, imagesResponse, relatedMoviesResponse] = responses
+            const results = toMovieDetails(
+                detailsResponse.data,
+                creditsResponse.data,
+                videosResponse.data.results,
+                keywordsResponse.data.keywords,
+                imagesResponse.data,
+                relatedMoviesResponse.data.results
+            )
             return results;
         }))
 }

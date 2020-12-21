@@ -27,4 +27,10 @@
     color: white;
     padding: 5px;
     border-radius: 3px;
+    white-space: nowrap;
+}
+
+.keywords__list {
+    display: flex;
+    flex-wrap: wrap;
 }

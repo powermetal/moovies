@@ -43,9 +43,15 @@
 
 .paginated_container__items {
     display: grid; 
-    grid-template: 1fr 1fr / 1fr 1fr 1fr 1fr 1fr;    
+    grid-template: auto / 1fr 1fr 1fr 1fr 1fr;    
 }
 
 .paginated_container__item {
     justify-self: center;
+}
+
+.paginated_container__err {
+    width: 1050px;
+    font-weight: bold;
+    text-align: center;
 }

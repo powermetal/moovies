@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Pagination from '../Pagination/Pagination';
 import './paginatedContainer.css';
 
-const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked }) => {
+const PaginatedContainer = ({ items = [], pageLimit, tabs = [{ value: '' }], onTabClicked, errMessage }) => {
     const [displayedContent, setDisplayedContent] = useState([])
     const [selectedTab, setSelectedTab] = useState(tabs[0].value)
 
@@ -28,12 +28,13 @@ const PaginatedContainer = ({ items = [], pageLimit, tabs = [], onTabClicked }) 
         <div className="paginated_container">
             <div className="paginated_container__actions">
                 <div>
-                    {tabs.map(tab => <button className={activeTab(tab)} onClick={e => handleTabClicked(tab)}>{tab.label}</button>)}
+                    {tabs.map(tab => tab.value.length > 0 ? <button className={activeTab(tab)} onClick={e => handleTabClicked(tab)}>{tab.label}</button> : null)}
                 </div>
-                <Pagination key={selectedTab} pageLimit={pageLimit} totalRecords={items.length} onPageChanged={handlePageChange} />
+                {displayedContent.length > 0 ? <Pagination key={selectedTab} pageLimit={pageLimit} totalRecords={items.length} onPageChanged={handlePageChange} /> : null}
             </div>
             <div className="paginated_container__items">
                 {displayedContent && displayedContent.map(item => <div className="paginated_container__item">{item}</div>)}
+                {!displayedContent.length > 0 ? <p className="paginated_container__err">{errMessage}</p> : null}
             </div>
         </div >
     )
