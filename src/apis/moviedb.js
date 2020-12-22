@@ -85,7 +85,11 @@ const toKeyword = k => {
     }
 }
 
-const toMovieDetails = (details, credits, videos, keywords, images, relatedMovies) => {
+const toLanguage = (languageCode, languageList) => {
+    return languageList.find(language => language.iso_639_1 === languageCode).english_name
+}
+
+const toMovieDetails = (details, credits, videos, keywords, images, relatedMovies, languages) => {
     return {
         ...toMovie(details),
         backdrop: movieImage(details.backdrop_path),
@@ -97,7 +101,7 @@ const toMovieDetails = (details, credits, videos, keywords, images, relatedMovie
         videos: videos.map(video => toVideo(video)),
         cast: credits.cast.map(p => toCast(p)),
         crew: credits.crew.map(p => toCrew(p)),
-        originalLanguage: details.original_language,
+        originalLanguage: toLanguage(details.original_language, languages),
         revenue: details.revenue,
         status: details.status,
         budget: details.budget,
@@ -114,23 +118,25 @@ export const getMovie = id => {
     const keywords = moviedb.get(`/movie/${id}/keywords`)
     const images = moviedb.get(`/movie/${id}/images`)
     const relatedMovies = moviedb.get(`/movie/${id}/similar`)
+    const languages = moviedb.get(`/configuration/languages`)
 
-    return axios.all([details, credits, videos, keywords, images, relatedMovies])
+    return axios.all([details, credits, videos, keywords, images, relatedMovies, languages])
         .then(axios.spread((...responses) => {
-            const [detailsResponse, creditsResponse, videosResponse, keywordsResponse, imagesResponse, relatedMoviesResponse] = responses
+            const [detailsResponse, creditsResponse, videosResponse, keywordsResponse, imagesResponse, relatedMoviesResponse, languagesResponse] = responses
             const results = toMovieDetails(
                 detailsResponse.data,
                 creditsResponse.data,
                 videosResponse.data.results,
                 keywordsResponse.data.keywords,
                 imagesResponse.data,
-                relatedMoviesResponse.data.results
+                relatedMoviesResponse.data.results,
+                languagesResponse.data
             )
             return results;
         }))
 }
 
-export const searchMovie = (query, page) => {
+const searchByName = (query, page) => {
     return moviedb.get('/search/movie', { params: { query, page } })
         .then(response => {
             return {
@@ -139,4 +145,23 @@ export const searchMovie = (query, page) => {
                 totalPages: response.data.total_pages
             }
         })
+}
+
+const searchByKeyword = (keyword, page) => {
+    return moviedb.get(`/keyword/${keyword}/movies`, { params: { page } })
+        .then(response => {
+            return {
+                results: response.data.results.map(m => toMovie(m)),
+                page: response.data.page,
+                totalPages: response.data.total_pages
+            }
+        })
+}
+
+export const searchMovie = (query, page) => {
+    console.log(query)
+    if (query.q)
+        return searchByName(query.q, page)
+    else
+        return searchByKeyword(query.k, page)
 }

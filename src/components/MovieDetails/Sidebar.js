@@ -1,6 +1,7 @@
 import React from 'react';
 import accounting from 'accounting-js';
 import './Sidebar.css'
+import { Link } from 'react-router-dom';
 
 const Sidebar = ({ movieDetails }) => {
     const renderKeywords = () => {
@@ -8,7 +9,7 @@ const Sidebar = ({ movieDetails }) => {
             return (
                 <div className="movie_details__keywords">
                     <h4 className="keywords">Keywords</h4>
-                    <div className="keywords__list">{movieDetails.keywords.map(k => <span className="movie_details__keyword">{k.name}</span>)}</div>
+                    <div className="keywords__list">{movieDetails.keywords.map(k => <Link to={`/search?k=${k.id}`} className="movie_details__keyword">{k.name}</Link>)}</div>
                 </div>
             )
         }

@@ -11,7 +11,7 @@ const SearchResults = (props) => {
     const [resultsData, setResultsData] = useState({ page: 1 })
 
     const searchMovies = async (nextPage, onSuccess) => {
-        const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })['q']
+        const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })
         const response = await searchMovie(query, nextPage)
         onSuccess(response);
     }
