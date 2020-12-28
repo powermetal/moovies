@@ -68,6 +68,7 @@ const MovieDetails = (props) => {
                         tabs={[{ value: 'relatedMovies', label: 'Related Movies' }]}
                         onTabClicked={() => null}
                         key={movieDetails.id}
+                        errMessage={`We are sorry, there are no related movies for "${movieDetails.title}"`}
                     />
                 </div>
                 <div className="movie_details__right"><Sidebar movieDetails={movieDetails} /></div>

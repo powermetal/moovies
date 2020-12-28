@@ -12,6 +12,7 @@
 .pagination .MuiSvgIcon-root {
     font-size: 2rem;
     cursor: pointer;
+    color: #393939;
 }
 
 .pagination .MuiSvgIcon-root:hover {

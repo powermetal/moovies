@@ -31,3 +31,14 @@
     color: white;
     cursor: pointer;
 }
+
+@media screen and (max-width: 768px) {
+    .modal-yt {
+        height: auto;
+        width: 100%;
+    }
+
+    .modal-ty__iframe {
+        height: 280px;
+    }
+}

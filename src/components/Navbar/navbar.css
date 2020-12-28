@@ -78,6 +78,20 @@
     font-family: sans-serif;
 }
 
+.navbar__user {
+    color: white;
+    font-family: sans-serif;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+}
+
+.navbar__avatar {
+    height: 5vh;
+    border-radius: 50%;
+    margin-left: 1rem;
+}
+
 @media screen and (max-width: 768px) {
     .navbar__logo {
         flex: 3;
@@ -128,5 +142,9 @@
     .navbar-search .navbar__search input {
         display: block;
         width: 100%;
+    }
+
+    .navbar__user span {
+        display: none;
     }
 }

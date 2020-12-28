@@ -16,7 +16,7 @@ const YoutubeModal = (props) => {
                     <h3>{props.title}</h3>
                     <CancelIcon onClick={props.onClose} />
                 </div>
-                <Youtube opts={opts} videoId={props.videoId}></Youtube>
+                <Youtube className="modal-ty__iframe" opts={opts} videoId={props.videoId}></Youtube>
             </div>
         </Modal >
 

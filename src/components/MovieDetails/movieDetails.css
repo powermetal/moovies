@@ -18,23 +18,21 @@
 .movie_details__people {
     width: 1075px;
     grid-column: 2/3;
-    grid-row: 1/2;
 }
 
 .movie_details__img {
     grid-column: 2/3;
-    grid-row: 2/3;
     height: 605px;
     justify-self: center;
-    margin-bottom: 2rem;
 }
 
 .movie_details__right {
     grid-column: 3/4;
-    grid-row: span 2;
+    grid-row: 1/span 3;
 }
 
 .movie_details__related {
     grid-column: 2/3;
-    grid-row: 3/4;
+    margin-bottom: 2rem;
+    width: 1075px;
 }

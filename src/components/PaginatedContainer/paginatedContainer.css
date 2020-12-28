@@ -1,8 +1,7 @@
 .paginated_container {
-    border: 1px solid;
+    border: 1px rgb(179, 179, 179) solid;
     border-radius: 7px;
     padding: 30px;
-    margin-bottom: 1rem;
     width: 100%;
 }
 
@@ -20,6 +19,7 @@
     font-weight: bold;
     margin-left: 10px;
     cursor: pointer;
+    color: #393939;
 }
 
 .paginated_container__tab:focus {

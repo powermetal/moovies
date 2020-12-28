@@ -5,7 +5,8 @@ import BookmarkIcon from '@material-ui/icons/Bookmark';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StarIcon from '@material-ui/icons/Star';
-import './Header.css'
+import CircularProgressBar from '../CircularProgressBar/CircularProgressBar';
+import './Header.css';
 
 const Header = ({ movieDetails, onPlayTrailer }) => {
 
@@ -20,7 +21,7 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
     }
 
     const formatScore = () => {
-        return movieDetails.userScore * 10 + '%'
+        return movieDetails.userScore * 10
     }
 
     const renderDirector = () => {
@@ -59,10 +60,7 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
                     </div>
                     <div className="movie_details__actions">
                         <div className="userScore">
-                            <div className="circleScore">
-                                <span>{formatScore()}</span>
-                            </div>
-                            <p>User Score</p>
+                            <CircularProgressBar rating={formatScore()} />
                         </div>
                         <div className="circle"><AddIcon /></div>
                         <div className="circle"><FavoriteIcon /></div>
@@ -85,3 +83,8 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
 }
 
 export default Header
+
+/*<div className="circleScore">
+<span>{formatScore()}</span>
+</div>
+<p>User Score</p>*/

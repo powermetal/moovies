@@ -4,12 +4,23 @@ import { Link, useHistory } from 'react-router-dom';
 import logo from '../../images/logo.png';
 import SearchIcon from '@material-ui/icons/Search';
 import CloseIcon from '@material-ui/icons/Close';
+import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
+import { login, logout, isSignIn, selectUser } from '../../redux/userSlice';
+import { useSelector, useDispatch } from 'react-redux';
 
 const Navbar = () => {
     const history = useHistory()
     const navRef = useRef()
     const searchRef = useRef()
     const [searchTerm, setSearchTerm] = useState('')
+    const dispatch = useDispatch()
+    const signedIn = useSelector(isSignIn)
+    const user = useSelector(selectUser)
+    const googleOAuth = {
+        clientId: "917855566915-81om0ij7mscqbhm4a64jb1e6s7rhi0ir.apps.googleusercontent.com",
+        cookiePolicy: "single_host_origin"
+    }
+
 
     const toggleSearch = () => {
         navRef.current.classList.toggle('navbar-search')
@@ -27,6 +38,41 @@ const Navbar = () => {
         history.push(`/search?q=${searchTerm}`)
     }
 
+    const onSuccess = (response) => {
+        dispatch(login({
+            name: response.profileObj.givenName,
+            googleId: response.profileObj.googleId,
+            avatar: response.profileObj.imageUrl
+        }))
+    }
+
+    const onFailure = (response) => {
+        console.log(response)
+    }
+
+    const onLogoutSuccess = () => {
+        dispatch(logout())
+    }
+
+    const { signIn, signInloaded } = useGoogleLogin({
+        onSuccess,
+        ...googleOAuth,
+        isSignedIn: true,
+        onFailure
+    })
+
+    const { signOut, signOutloaded } = useGoogleLogout({
+        onFailure,
+        ...googleOAuth,
+        onLogoutSuccess
+    })
+
+    const renderButton = () => {
+        if (signedIn)
+            return <div className="navbar__user"><span>{user.name}</span><img className="navbar__avatar" src={user.avatar} /></div>
+        else
+            return <button onClick={() => signIn()}>Login</button>
+    }
 
     return (
         <nav className="navbar" ref={navRef}>
@@ -42,7 +88,7 @@ const Navbar = () => {
                 <CloseIcon className="navbar__closeIcon" onClick={toggleSearch} />
             </div>
             <div className="navbar__login">
-                <p>Login</p>
+                {renderButton()}
             </div>
         </nav>
     )
