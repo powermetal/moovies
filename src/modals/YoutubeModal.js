@@ -19,7 +19,6 @@ const YoutubeModal = (props) => {
                 <Youtube className="modal-ty__iframe" opts={opts} videoId={props.videoId}></Youtube>
             </div>
         </Modal >
-
     )
 }
 

@@ -3,7 +3,8 @@ import { createSlice } from '@reduxjs/toolkit';
 const defaultState = {
     googleId: '',
     name: '',
-    avatar: ''
+    avatar: '',
+    watchlist: []
 }
 
 export const userSlice = createSlice({
@@ -16,13 +17,21 @@ export const userSlice = createSlice({
         },
         logout: () => {
             return { ...defaultState }
+        },
+        addToWatchlist: (state, action) => {
+            return { ...state, watchlist: [...state.watchlist, action.payload] }
+        },
+        removeFromWatchlist: (state, action) => {
+            return { ...state, watchlist: state.watchlist.filter(m => m.id !== action.payload.id) }
         }
     }
 });
 
-export const { login, logout } = userSlice.actions;
+export const { login, logout, addToWatchlist, removeFromWatchlist } = userSlice.actions;
 
 export const isSignIn = state => state.user.googleId ? true : false
+
+export const selectWatchlist = state => state.user.watchlist
 
 export const selectUser = state => state.user
 

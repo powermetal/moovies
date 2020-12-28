@@ -7,8 +7,19 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StarIcon from '@material-ui/icons/Star';
 import CircularProgressBar from '../CircularProgressBar/CircularProgressBar';
 import './Header.css';
+import { addToWatchlist, selectWatchlist, removeFromWatchlist } from '../../redux/userSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Header = ({ movieDetails, onPlayTrailer }) => {
+    const dispatch = useDispatch()
+    const watchlist = useSelector(selectWatchlist)
+
+    const toWatchlist = () => {
+        if (watchlist.find(m => m.id === movieDetails.id))
+            dispatch(removeFromWatchlist({ id: movieDetails.id }))
+        else
+            dispatch(addToWatchlist({ name: movieDetails.title, id: movieDetails.id }))
+    }
 
     const getGenres = () => {
         return movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
@@ -62,7 +73,7 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
                         <div className="userScore">
                             <CircularProgressBar rating={formatScore()} />
                         </div>
-                        <div className="circle"><AddIcon /></div>
+                        <div className="circle"><AddIcon onClick={() => toWatchlist()} /></div>
                         <div className="circle"><FavoriteIcon /></div>
                         <div className="circle"><BookmarkIcon /></div>
                         <div className="circle"><StarIcon /></div>
@@ -83,8 +94,3 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
 }
 
 export default Header
-
-/*<div className="circleScore">
-<span>{formatScore()}</span>
-</div>
-<p>User Score</p>*/
