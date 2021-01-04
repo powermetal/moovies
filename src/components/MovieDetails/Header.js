@@ -1,25 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AddIcon from '@material-ui/icons/Add';
 import BookmarkIcon from '@material-ui/icons/Bookmark';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import StarIcon from '@material-ui/icons/Star';
 import CircularProgressBar from '../CircularProgressBar/CircularProgressBar';
 import './Header.css';
-import { addToWatchlist, selectWatchlist, removeFromWatchlist } from '../../redux/userSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import AddToWatchlist from '../AddToWatchlist/AddToWatchlist';
 
 const Header = ({ movieDetails, onPlayTrailer }) => {
-    const dispatch = useDispatch()
-    const watchlist = useSelector(selectWatchlist)
-
-    const toWatchlist = () => {
-        if (watchlist.find(m => m.id === movieDetails.id))
-            dispatch(removeFromWatchlist({ id: movieDetails.id }))
-        else
-            dispatch(addToWatchlist({ name: movieDetails.title, id: movieDetails.id }))
-    }
 
     const getGenres = () => {
         return movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
@@ -73,7 +62,7 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
                         <div className="userScore">
                             <CircularProgressBar rating={formatScore()} />
                         </div>
-                        <div className="circle"><AddIcon onClick={() => toWatchlist()} /></div>
+                        <AddToWatchlist title={movieDetails.title} id={movieDetails.id} />
                         <div className="circle"><FavoriteIcon /></div>
                         <div className="circle"><BookmarkIcon /></div>
                         <div className="circle"><StarIcon /></div>
