@@ -4,11 +4,25 @@ import qs from 'qs';
 import './searchResults.css'
 import { Link } from 'react-router-dom';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
+import AddToButton from '../AddToButton/AddToButton';
+import { useSelector } from 'react-redux';
+import { selectWatchlist, selectFavorites } from '../../redux/userSlice';
 
 const SearchResults = (props) => {
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
     const [resultsData, setResultsData] = useState({ page: 1 })
+
+    const watchlist = useSelector(selectWatchlist)
+    const favorites = useSelector(selectFavorites)
+
+    const isInWatchlist = (id) => {
+        return watchlist.find(m => m.id === id) !== undefined
+    }
+
+    const isInFavorites = (id) => {
+        return favorites.find(m => m.id === id) !== undefined
+    }
 
     const searchMovies = async (nextPage, onSuccess) => {
         const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })
@@ -62,6 +76,10 @@ const SearchResults = (props) => {
                 <div className="search_results__overview">
                     <p>{m.overview.length > 0 ? m.overview : 'No overview available.'}</p>
                 </div>
+            </div>
+            <div className="search_results__actions">
+                <AddToButton buttonType="watchlist" active={isInWatchlist(m.id)} title={m.title} id={m.id} />
+                <AddToButton buttonType="favorites" active={isInFavorites(m.id)} title={m.title} id={m.id} />
             </div>
         </div >
     )

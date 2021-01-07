@@ -1,14 +1,24 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import BookmarkIcon from '@material-ui/icons/Bookmark';
-import FavoriteIcon from '@material-ui/icons/Favorite';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import StarIcon from '@material-ui/icons/Star';
 import CircularProgressBar from '../CircularProgressBar/CircularProgressBar';
 import './Header.css';
-import AddToWatchlist from '../AddToWatchlist/AddToWatchlist';
+import AddToButton from '../AddToButton/AddToButton';
+import { useSelector } from 'react-redux';
+import { selectWatchlist, selectFavorites } from '../../redux/userSlice';
 
 const Header = ({ movieDetails, onPlayTrailer }) => {
+
+    const watchlist = useSelector(selectWatchlist)
+    const favorites = useSelector(selectFavorites)
+
+    const isInWatchlist = () => {
+        return watchlist.find(m => m.id === movieDetails.id) !== undefined
+    }
+
+    const isInFavorites = () => {
+        return favorites.find(m => m.id === movieDetails.id) !== undefined
+    }
 
     const getGenres = () => {
         return movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
@@ -38,7 +48,7 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
         if (movieDetails.videos.length > 0)
             return (
                 <div className="play_trailer" onClick={e => onPlayTrailer()}>
-                    <PlayArrowIcon /><p>Play Trailer</p>
+                    <div className="circle" title="Play Trailer"><PlayArrowIcon /></div>
                 </div>
             )
     }
@@ -62,10 +72,8 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
                         <div className="userScore">
                             <CircularProgressBar rating={formatScore()} />
                         </div>
-                        <AddToWatchlist title={movieDetails.title} id={movieDetails.id} />
-                        <div className="circle"><FavoriteIcon /></div>
-                        <div className="circle"><BookmarkIcon /></div>
-                        <div className="circle"><StarIcon /></div>
+                        <AddToButton active={isInWatchlist()} buttonType='watchlist' title={movieDetails.title} id={movieDetails.id} />
+                        <AddToButton active={isInFavorites()} buttonType='favorites' title={movieDetails.title} id={movieDetails.id} />
                         {renderTrailer()}
                     </div>
                     <div className="movie_details__tagline">

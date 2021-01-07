@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import './navbar.css';
 import { Link, useHistory } from 'react-router-dom';
 import logo from '../../images/logo.png';
@@ -7,8 +7,9 @@ import CloseIcon from '@material-ui/icons/Close';
 import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
 import { login, logout, isSignIn, selectUser } from '../../redux/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = (props) => {
     const history = useHistory()
     const navRef = useRef()
     const searchRef = useRef()
@@ -20,7 +21,6 @@ const Navbar = () => {
         clientId: "917855566915-81om0ij7mscqbhm4a64jb1e6s7rhi0ir.apps.googleusercontent.com",
         cookiePolicy: "single_host_origin"
     }
-
 
     const toggleSearch = () => {
         navRef.current.classList.toggle('navbar-search')
@@ -74,24 +74,37 @@ const Navbar = () => {
             return <button onClick={() => signIn()}>Login</button>
     }
 
+    const isInHome = () => {
+        if (props.location.pathname === '/')
+            return '__home'
+        else
+            return ''
+    }
+
+    const renderTagline = () => {
+        if (props.location.pathname === '/')
+            return <p>Search for your favorites <span>Moovies!</span> and create your own watchlists!</p>
+    }
+
     return (
-        <nav className="navbar" ref={navRef}>
-            <Link className="navbar__logo" to={"/"}>
+        <nav className={`navbar${isInHome()}`} ref={navRef}>
+            <Link className={`navbar__logo${isInHome()}`} to={"/"}>
                 <img src={logo} />
                 <h1>Moovies!</h1>
+                {renderTagline()}
             </Link>
-            <div className="navbar__search">
+            <div className={`navbar__search${isInHome()}`}>
                 <form onSubmit={onSubmitSearch}>
                     <input ref={searchRef} onChange={e => setSearchTerm(e.target.value)} value={searchTerm} placeholder='Search...' />
                 </form>
                 <SearchIcon className="navbar__searchIcon" onClick={onSearchIconClick} />
                 <CloseIcon className="navbar__closeIcon" onClick={toggleSearch} />
             </div>
-            <div className="navbar__login">
+            <div className={`navbar__login${isInHome()}`}>
                 {renderButton()}
             </div>
         </nav>
     )
 }
 
-export default Navbar
+export default withRouter(Navbar)
