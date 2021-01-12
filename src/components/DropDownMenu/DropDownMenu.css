@@ -1,0 +1,57 @@
+.menu {
+    display: none;
+}
+
+.menu:focus {
+    outline: none;
+}
+
+.menu__active:focus {
+    outline: none;
+}
+
+.menu__active {
+    display: flex;
+    flex-direction: column;
+    width: 10rem;
+    border-radius: 7px;
+    overflow: hidden;
+}
+
+.menu a {
+    text-decoration: none;
+}
+
+.menu__item {
+    padding: 1rem;
+    background-color: rgb(60 65 75);
+    color: white;
+    border-bottom: 1px #494b50 solid;
+    display: flex;
+    align-items: center;
+}
+
+.menu__item:focus {
+    outline: none;
+}
+
+.menu__item:last-child {
+    border: none;
+}
+
+.menu__item:last-child:hover {
+    border: none;
+}
+
+.menu__item:hover {
+    background-color: rgb(44 46 52);
+}
+
+.menu__item span {
+    margin-left: 1rem;
+}
+
+.outside__dropdown {
+    width: 100vh;
+    height: 100vh;
+}

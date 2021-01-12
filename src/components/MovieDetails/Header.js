@@ -5,12 +5,13 @@ import CircularProgressBar from '../CircularProgressBar/CircularProgressBar';
 import './Header.css';
 import AddToButton from '../AddToButton/AddToButton';
 import { useSelector } from 'react-redux';
-import { selectWatchlist, selectFavorites } from '../../redux/userSlice';
+import { selectWatchlist, selectFavorites, selectWatched } from '../../redux/userSlice';
 
 const Header = ({ movieDetails, onPlayTrailer }) => {
 
     const watchlist = useSelector(selectWatchlist)
     const favorites = useSelector(selectFavorites)
+    const watched = useSelector(selectWatched)
 
     const isInWatchlist = () => {
         return watchlist.find(m => m.id === movieDetails.id) !== undefined
@@ -20,8 +21,12 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
         return favorites.find(m => m.id === movieDetails.id) !== undefined
     }
 
+    const isInWatched = () => {
+        return watched.find(m => m.id === movieDetails.id) !== undefined
+    }
+
     const getGenres = () => {
-        return movieDetails.genres.map(genre => <Link to="#">{genre.name}</Link>)
+        return movieDetails.genres.map(genre => <Link key={genre.id} to="#">{genre.name}</Link>)
             .reduce((genreList, genre, index) => {
                 genreList.push(genre)
                 if (index !== movieDetails.genres.length - 1)
@@ -74,6 +79,7 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
                         </div>
                         <AddToButton active={isInWatchlist()} buttonType='watchlist' title={movieDetails.title} id={movieDetails.id} />
                         <AddToButton active={isInFavorites()} buttonType='favorites' title={movieDetails.title} id={movieDetails.id} />
+                        <AddToButton active={isInWatched()} buttonType='watched' title={movieDetails.title} id={movieDetails.id} />
                         {renderTrailer()}
                     </div>
                     <div className="movie_details__tagline">

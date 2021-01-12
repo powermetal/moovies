@@ -2,8 +2,12 @@ import React from 'react';
 import './CircularProgressBar.css';
 
 const CircularProgressBar = ({ rating }) => {
+
     const renderProgress = () => {
-        return 125 - (125 * rating) / 100
+        if (isNaN(rating))
+            return 0
+        else
+            return 125 - (125 * rating) / 100
     }
 
     return (
@@ -13,7 +17,7 @@ const CircularProgressBar = ({ rating }) => {
                 <circle cx="20" cy="20" r="20" style={{ strokeDashoffset: renderProgress() }} />
             </svg>
             <div className="number">
-                <h2>{rating}</h2>
+                <h2>{isNaN(rating) ? 0 : rating}</h2>
             </div>
         </div>
     )

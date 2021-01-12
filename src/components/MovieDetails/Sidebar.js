@@ -9,7 +9,7 @@ const Sidebar = ({ movieDetails }) => {
             return (
                 <div className="movie_details__keywords">
                     <h4 className="keywords">Keywords</h4>
-                    <div className="keywords__list">{movieDetails.keywords.map(k => <Link to={`/search?k=${k.id}`} className="movie_details__keyword">{k.name}</Link>)}</div>
+                    <div className="keywords__list">{movieDetails.keywords.map(k => <Link key={k.id} to={`/search?k=${k.id}`} className="movie_details__keyword">{k.name}</Link>)}</div>
                 </div>
             )
         }

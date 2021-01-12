@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import AddToButton from '../AddToButton/AddToButton';
 import { useSelector } from 'react-redux';
-import { selectWatchlist, selectFavorites } from '../../redux/userSlice';
+import { selectWatchlist, selectFavorites, selectWatched } from '../../redux/userSlice';
 
 const SearchResults = (props) => {
     const [movies, setMovies] = useState([])
@@ -15,6 +15,7 @@ const SearchResults = (props) => {
 
     const watchlist = useSelector(selectWatchlist)
     const favorites = useSelector(selectFavorites)
+    const watched = useSelector(selectWatched)
 
     const isInWatchlist = (id) => {
         return watchlist.find(m => m.id === id) !== undefined
@@ -22,6 +23,10 @@ const SearchResults = (props) => {
 
     const isInFavorites = (id) => {
         return favorites.find(m => m.id === id) !== undefined
+    }
+
+    const isInWatched = (id) => {
+        return watched.find(m => m.id === id) !== undefined
     }
 
     const searchMovies = async (nextPage, onSuccess) => {
@@ -80,6 +85,7 @@ const SearchResults = (props) => {
             <div className="search_results__actions">
                 <AddToButton buttonType="watchlist" active={isInWatchlist(m.id)} title={m.title} id={m.id} />
                 <AddToButton buttonType="favorites" active={isInFavorites(m.id)} title={m.title} id={m.id} />
+                <AddToButton buttonType='watched' active={isInWatched(m.id)} title={m.title} id={m.id} />
             </div>
         </div >
     )

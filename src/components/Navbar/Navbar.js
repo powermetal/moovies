@@ -8,12 +8,17 @@ import { useGoogleLogin, useGoogleLogout } from 'react-google-login';
 import { login, logout, isSignIn, selectUser } from '../../redux/userSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import DropDownMenu from '../DropDownMenu/DropDownMenu';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 const Navbar = (props) => {
     const history = useHistory()
     const navRef = useRef()
+    const menuRef = React.createRef()
     const searchRef = useRef()
     const [searchTerm, setSearchTerm] = useState('')
+    const [open, setOpen] = useState(false)
     const dispatch = useDispatch()
     const signedIn = useSelector(isSignIn)
     const user = useSelector(selectUser)
@@ -67,11 +72,41 @@ const Navbar = (props) => {
         onLogoutSuccess
     })
 
+    const logoutMenu = () => {
+        signOut()
+        setOpen(false)
+    }
+
+    const showMenu = () => {
+        setOpen(!open)
+    }
+
+    useEffect(() => {
+        if (menuRef.current)
+            menuRef.current.focus()
+    }, [open])
+
     const renderButton = () => {
         if (signedIn)
-            return <div className="navbar__user"><span>{user.name}</span><img className="navbar__avatar" src={user.avatar} /></div>
+            return (
+                <div className={`navbar__user${isInHome()}`}>
+                    <span>{user.name}</span>
+                    <img onClick={showMenu} className="navbar__avatar" src={user.avatar} />
+                    <div className={`navbar__menu${isInHome()}`}>
+                        <DropDownMenu
+                            ref={menuRef}
+                            active={open}
+                            blur={() => setOpen(false)}
+                            items={[
+                                { value: 'Profile', path: '/', icon: <AccountCircleIcon /> },
+                                { value: 'Logout', icon: <ExitToAppIcon />, action: logoutMenu }
+                            ]}
+                        />
+                    </div>
+                </div>
+            )
         else
-            return <button onClick={() => signIn()}>Login</button>
+            return <p onClick={signIn}>Login</p>
     }
 
     const isInHome = () => {
