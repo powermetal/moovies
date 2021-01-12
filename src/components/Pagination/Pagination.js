@@ -1,24 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import './pagination.css';
 
-const countDisplayedElements = (currentPage, totalPages, totalRecords, pageLimit) => {
-    const remainder = totalRecords % pageLimit
-    return currentPage === totalPages && remainder !== 0 ? remainder : pageLimit
-}
-
 const Pagination = ({ pageLimit, totalRecords, onPageChanged }) => {
     const totalPages = Math.ceil(totalRecords / pageLimit);
-    const [state, setState] = useState({ from: 0, to: countDisplayedElements(1, totalPages, totalRecords, pageLimit), currentPage: 1 })
+    const [state, setState] = useState({ currentPage: 1, previousPage: 1 })
 
     const calculateNextState = (prevState, newCurrent) => {
-        const elementsInPage = countDisplayedElements(newCurrent, totalPages, totalRecords, pageLimit)
-
         return {
-            currentPage: newCurrent
+            currentPage: newCurrent,
+            previousPage: prevState.currentPage
         }
     }
+
+    useEffect(() => {
+        handlePageChanged(state.currentPage, state.previousPage)
+    }, [state])
 
     const handlePageChanged = (currentPage, previousPage) => {
         if (currentPage !== previousPage)
@@ -28,7 +26,6 @@ const Pagination = ({ pageLimit, totalRecords, onPageChanged }) => {
     const onNextPage = () => {
         setState(prevState => {
             const newCurrent = prevState.currentPage !== totalPages ? prevState.currentPage + 1 : prevState.currentPage
-            handlePageChanged(newCurrent, prevState.currentPage)
             return calculateNextState(prevState, newCurrent)
         })
     }
@@ -36,7 +33,6 @@ const Pagination = ({ pageLimit, totalRecords, onPageChanged }) => {
     const onPreviousPage = () => {
         setState(prevState => {
             const newCurrent = prevState.currentPage !== 1 ? prevState.currentPage - 1 : prevState.currentPage
-            handlePageChanged(newCurrent, prevState.currentPage)
             return calculateNextState(prevState, newCurrent)
         })
     }
