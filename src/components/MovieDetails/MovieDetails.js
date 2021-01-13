@@ -22,7 +22,6 @@ const MovieDetails = (props) => {
     })
 
     const [openTrailer, setOpenTrailer] = useState(false)
-    const [people, setPeople] = useState('cast')
 
     const peopleTabs = {
         cast: {
@@ -75,7 +74,7 @@ const MovieDetails = (props) => {
                 <YoutubeModal open={openTrailer} onClose={() => setOpenTrailer(false)} videoId={movieDetails.videos.length > 0 ? movieDetails.videos[0].key : null} title={movieDetails.title} />
                 <div className="movie_details__people">
                     <PaginatedContainer
-                        key={`${people}:${movieDetails.id}`}
+                        key={`people:${movieDetails.id}`}
                         tabs={peopleTabs}
                         pageLimit={10}
                     />
