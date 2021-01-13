@@ -57,7 +57,7 @@ const MovieDetails = (props) => {
                         tabs={[{ value: 'cast', label: `Cast (${movieDetails.cast.length})` }, { value: 'crew', label: `Crew (${movieDetails.crew.length})` }]}
                         onTabClicked={(tabValue) => setPeople(tabValue)}
                         errMessage={`We are sorry, there is no ${people} info available for "${movieDetails.title}"`}
-                        key={movieDetails.id}
+                        key={`${people}:${movieDetails.id}`}
                     />
                 </div>
                 {renderSlider()}
@@ -67,7 +67,7 @@ const MovieDetails = (props) => {
                         pageLimit={5}
                         tabs={[{ value: 'relatedMovies', label: 'Related Movies' }]}
                         onTabClicked={() => null}
-                        key={movieDetails.id}
+                        key={'relatedMovies'}
                         errMessage={`We are sorry, there are no related movies for "${movieDetails.title}"`}
                     />
                 </div>

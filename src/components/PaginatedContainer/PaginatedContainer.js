@@ -1,25 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Pagination from '../Pagination/Pagination';
 import './paginatedContainer.css';
 
 const PaginatedContainer = ({ items = [], pageLimit, tabs = [{ value: '' }], onTabClicked, errMessage }) => {
-    const [displayedContent, setDisplayedContent] = useState([])
+    const [displayedContent, setDisplayedContent] = useState(items.slice(0, pageLimit))
     const [selectedTab, setSelectedTab] = useState(tabs[0].value)
-
-    console.log(items.length)
-
-    useEffect(() => setDisplayedContent(items.slice(0, pageLimit)), [items])
 
     const handlePageChange = (currentPage, from, to) => {
         setDisplayedContent(items.slice(from, to + 1))
     }
 
     const handleTabClicked = (tab) => {
-        onTabClicked(tab.value)
         setSelectedTab(tab.value)
+        onTabClicked(tab.value)
     }
 
     const activeTab = (tab) => {
+        console.log(selectedTab)
         if (tab.value === selectedTab)
             return "paginated_container__tab active"
         return "paginated_container__tab"
