@@ -20,6 +20,10 @@
 .card__info h4 {
     margin-bottom: 5px;
     color: #393939;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
 }
 
 .card__info span {

@@ -17,11 +17,35 @@ const MovieDetails = (props) => {
         keywords: [],
         cast: [],
         crew: [],
+        relatedMovies: [],
         images: { backdrops: [], posters: [] }
     })
 
     const [openTrailer, setOpenTrailer] = useState(false)
     const [people, setPeople] = useState('cast')
+
+    const peopleTabs = {
+        cast: {
+            label: `Cast (${movieDetails.cast.length})`,
+            items: movieDetails.cast.map(cast => <PeopleCard name={cast.name} role={cast.role} photo={cast.photo} />),
+            errMessage: `We are sorry, there is no cast info available for "${movieDetails.title}"`
+        },
+        crew: {
+            label: `Crew (${movieDetails.crew.length})`,
+            items: movieDetails.crew.map(crew => <PeopleCard name={crew.name} role={crew.role} photo={crew.photo} />),
+            errMessage: `We are sorry, there is no crew info available for "${movieDetails.title}"`
+        },
+    }
+
+    const relatedTab = {
+        related: {
+            label: 'Related Movies',
+            items: movieDetails.relatedMovies.map(movie => <MovieCard title={movie.title} rating={movie.rating} poster={movie.poster} id={movie.id} />),
+            errMessage: `We are sorry, there are no related movies for "${movieDetails.title}"`
+        }
+    }
+
+    console.log(relatedTab)
 
     useEffect(() => {
         window.scrollTo(0, 0)
@@ -51,24 +75,17 @@ const MovieDetails = (props) => {
                 <YoutubeModal open={openTrailer} onClose={() => setOpenTrailer(false)} videoId={movieDetails.videos.length > 0 ? movieDetails.videos[0].key : null} title={movieDetails.title} />
                 <div className="movie_details__people">
                     <PaginatedContainer
-                        items={movieDetails[people] && movieDetails[people]
-                            .map(cast => <PeopleCard name={cast.name} role={cast.role} photo={cast.photo} />)}
-                        pageLimit={10}
-                        tabs={[{ value: 'cast', label: `Cast (${movieDetails.cast.length})` }, { value: 'crew', label: `Crew (${movieDetails.crew.length})` }]}
-                        onTabClicked={(tabValue) => setPeople(tabValue)}
-                        errMessage={`We are sorry, there is no ${people} info available for "${movieDetails.title}"`}
                         key={`${people}:${movieDetails.id}`}
+                        tabs={peopleTabs}
+                        pageLimit={10}
                     />
                 </div>
                 {renderSlider()}
                 <div className="movie_details__related">
                     <PaginatedContainer
-                        items={movieDetails.relatedMovies && movieDetails.relatedMovies.map(movie => <MovieCard title={movie.title} rating={movie.rating} poster={movie.poster} id={movie.id} />)}
+                        key={`relatedMovies:${movieDetails.id}`}
+                        tabs={relatedTab}
                         pageLimit={5}
-                        tabs={[{ value: 'relatedMovies', label: 'Related Movies' }]}
-                        onTabClicked={() => null}
-                        key={'relatedMovies'}
-                        errMessage={`We are sorry, there are no related movies for "${movieDetails.title}"`}
                     />
                 </div>
                 <div className="movie_details__right"><Sidebar movieDetails={movieDetails} /></div>
