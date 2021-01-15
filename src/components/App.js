@@ -6,6 +6,7 @@ import { BrowserRouter, Route } from 'react-router-dom';
 import Navbar from './Navbar/Navbar'
 import './App.css';
 import MovieDetails from './MovieDetails/MovieDetails';
+import Profile from './Profile/Profile';
 import db from '../apis/firebase';
 import { selectUser, fetchWatchlist, fetchFavorites, fetchWatched } from '../redux/userSlice';
 
@@ -29,6 +30,7 @@ const App = () => {
         <Route path="/" exact component={Home} />
         <Route path="/search" exact component={SearchResults} />
         <Route path="/movie/:id" exact component={MovieDetails} />
+        <Route path="/profile/:id" exact component={Profile} />
       </BrowserRouter>
     </div>
   )

@@ -27,6 +27,7 @@ export const userSlice = createSlice({
             return { ...state, watchlist: [...state.watchlist, action.payload] }
         },
         removeFromWatchlist: (state, action) => {
+            console.log(`me ejecute con el id: ${action.payload.id}`)
             return { ...state, watchlist: state.watchlist.filter(m => m.id !== action.payload.id) }
         },
         fetchWatched: (state, action) => {
