@@ -1,18 +1,43 @@
 import { createSlice } from '@reduxjs/toolkit';
+import _ from 'lodash';
 
 const defaultState = {
     googleId: '',
     name: '',
     avatar: '',
-    watchlist: [],
-    favorites: [],
-    watched: []
+    movies: []
+}
+
+const addMovie = (movies, movie) => {
+    if (movies.find(m => m.id === movie.id)) {
+        return movies.reduce((acc, e) => {
+            if (e.id === movie.id)
+                acc.push(_.merge({}, e, movie))
+            else
+                acc.push(e)
+            return acc
+        }, [])
+    }
+    else
+        return [...movies, movie]
+}
+
+const removeMovie = (movies, newMovie) => {
+    return movies.reduce((acc, e) => {
+        if (e.id !== newMovie.id) {
+            acc.push(e)
+        }
+        else {
+            if (newMovie.watchlist || newMovie.favorite || newMovie.watched)
+                acc.push(newMovie)
+        }
+        return acc
+    }, [])
 }
 
 export const userSlice = createSlice({
     name: 'user',
     initialState: defaultState,
-
     reducers: {
         login: (state, action) => {
             return ({ ...state, ...action.payload })
@@ -20,33 +45,14 @@ export const userSlice = createSlice({
         logout: () => {
             return { ...defaultState }
         },
-        fetchWatchlist: (state, action) => {
-            return { ...state, watchlist: action.payload }
+        fetchMovies: (state, action) => {
+            return { ...state, movies: action.payload }
         },
-        addToWatchlist: (state, action) => {
-            return { ...state, watchlist: [...state.watchlist, action.payload] }
+        addToMovies: (state, action) => {
+            return { ...state, movies: addMovie(state.movies, action.payload) }
         },
-        removeFromWatchlist: (state, action) => {
-            console.log(`me ejecute con el id: ${action.payload.id}`)
-            return { ...state, watchlist: state.watchlist.filter(m => m.id !== action.payload.id) }
-        },
-        fetchWatched: (state, action) => {
-            return { ...state, watched: action.payload }
-        },
-        addToWatched: (state, action) => {
-            return { ...state, watched: [...state.watched, action.payload] }
-        },
-        removeFromWatched: (state, action) => {
-            return { ...state, watched: state.watched.filter(m => m.id !== action.payload.id) }
-        },
-        fetchFavorites: (state, action) => {
-            return { ...state, favorites: action.payload }
-        },
-        addToFavorites: (state, action) => {
-            return { ...state, favorites: [...state.favorites, action.payload] }
-        },
-        removeFromFavorites: (state, action) => {
-            return { ...state, favorites: state.favorites.filter(m => m.id !== action.payload.id) }
+        removeFromMovies: (state, action) => {
+            return { ...state, movies: removeMovie(state.movies, action.payload) }
         }
     }
 });
@@ -54,24 +60,14 @@ export const userSlice = createSlice({
 export const {
     login,
     logout,
-    addToWatchlist,
-    removeFromWatchlist,
-    fetchWatchlist,
-    addToFavorites,
-    removeFromFavorites,
-    fetchFavorites,
-    addToWatched,
-    removeFromWatched,
-    fetchWatched
+    addToMovies,
+    removeFromMovies,
+    fetchMovies,
 } = userSlice.actions;
 
 export const isSignIn = state => state.user.googleId ? true : false
 
-export const selectWatchlist = state => state.user.watchlist
-
-export const selectFavorites = state => state.user.favorites
-
-export const selectWatched = state => state.user.watched
+export const selectMovies = state => state.user.movies
 
 export const selectUser = state => state.user
 

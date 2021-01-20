@@ -44,8 +44,6 @@ const MovieDetails = (props) => {
         }
     }
 
-    console.log(relatedTab)
-
     useEffect(() => {
         window.scrollTo(0, 0)
         const getMovieDetails = async () => {

@@ -6,28 +6,14 @@ import { Link } from 'react-router-dom';
 import useInfiniteScroll from 'react-infinite-scroll-hook';
 import AddToButton from '../AddToButton/AddToButton';
 import { useSelector } from 'react-redux';
-import { selectWatchlist, selectFavorites, selectWatched } from '../../redux/userSlice';
+import { selectMovies } from '../../redux/userSlice';
+import { isInWatchlist, isInWatched, isInFavorites } from '../../redux/movies';
 
 const SearchResults = (props) => {
     const [movies, setMovies] = useState([])
     const [loading, setLoading] = useState(false)
     const [resultsData, setResultsData] = useState({ page: 1 })
-
-    const watchlist = useSelector(selectWatchlist)
-    const favorites = useSelector(selectFavorites)
-    const watched = useSelector(selectWatched)
-
-    const isInWatchlist = (id) => {
-        return watchlist.find(m => m.id === id) !== undefined
-    }
-
-    const isInFavorites = (id) => {
-        return favorites.find(m => m.id === id) !== undefined
-    }
-
-    const isInWatched = (id) => {
-        return watched.find(m => m.id === id) !== undefined
-    }
+    const movies2 = useSelector(selectMovies)
 
     const searchMovies = async (nextPage, onSuccess) => {
         const query = qs.parse(props.location.search, { ignoreQueryPrefix: true })
@@ -69,7 +55,7 @@ const SearchResults = (props) => {
     });
 
     const toMovieCard = m => (
-        <div className="search_results__card">
+        <div key={m.id} className="search_results__card">
             <div className="search_results__poster">
                 <Link to={`/movie/${m.id}`}><img src={m.poster} /></Link>
             </div>
@@ -83,9 +69,9 @@ const SearchResults = (props) => {
                 </div>
             </div>
             <div className="search_results__actions">
-                <AddToButton buttonType="watchlist" active={isInWatchlist(m.id)} title={m.title} id={m.id} />
-                <AddToButton buttonType="favorites" active={isInFavorites(m.id)} title={m.title} id={m.id} />
-                <AddToButton buttonType='watched' active={isInWatched(m.id)} title={m.title} id={m.id} />
+                <AddToButton buttonType="watchlist" active={isInWatchlist(movies2, m.id)} title={m.title} id={m.id} />
+                <AddToButton buttonType="favorites" active={isInFavorites(movies2, m.id)} title={m.title} id={m.id} />
+                <AddToButton buttonType='watched' active={isInWatched(movies2, m.id)} title={m.title} id={m.id} />
             </div>
         </div >
     )

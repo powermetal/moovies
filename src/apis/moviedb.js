@@ -159,7 +159,6 @@ const searchByKeyword = (keyword, page) => {
 }
 
 export const searchMovie = (query, page) => {
-    console.log(query)
     if (query.q)
         return searchByName(query.q, page)
     else

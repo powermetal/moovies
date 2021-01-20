@@ -2,14 +2,9 @@ import React from 'react';
 import MovieList from '../MovieList/MovieList';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-    selectWatchlist,
-    selectWatched,
-    removeFromWatched,
-    removeFromWatchlist,
-    addToWatched,
-    removeFromFavorites,
-    addToFavorites,
-    selectFavorites
+    removeFromMovies,
+    addToMovies,
+
 } from '../../redux/userSlice';
 import DeleteIcon from '@material-ui/icons/Delete';
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -24,24 +19,22 @@ import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 // }
 
 const Watchlist = () => {
-    const movies = useSelector(selectWatchlist)
-    const watched = useSelector(selectWatched)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
 
-    const actions = [
-        {
-            icon: () => <DeleteIcon />,
-            fn: (id) => dispatch(removeFromWatchlist({ id }))
-        },
-        {
-            icon: (id) => watched.find(movie => movie.id === id) ? <VisibilityOffIcon /> : <VisibilityIcon />,
-            fn: (id) => watched.find(movie => movie.id === id) ? dispatch(removeFromWatched({ id })) : dispatch(addToWatched({ id }))
-        }
-    ]
+    // const actions = [
+    //     {
+    //         icon: () => <DeleteIcon />,
+    //         fn: (id) => dispatch(removeFromWatchlist({ id }))
+    //     },
+    //     {
+    //         icon: (id) => watched.find(movie => movie.id === id) ? <VisibilityOffIcon /> : <VisibilityIcon />,
+    //         fn: (id) => watched.find(movie => movie.id === id) ? dispatch(removeFromWatched({ id })) : dispatch(addToWatched({ id }))
+    //     }
+    // ]
 
-    return (
-        <MovieList movies={movies} actions={actions} />
-    )
+    // return (
+    //     <MovieList movies={movies} actions={actions} />
+    // )
 }
 
 export default Watchlist

@@ -8,7 +8,7 @@ import './App.css';
 import MovieDetails from './MovieDetails/MovieDetails';
 import Profile from './Profile/Profile';
 import db from '../apis/firebase';
-import { selectUser, fetchWatchlist, fetchFavorites, fetchWatched } from '../redux/userSlice';
+import { selectUser, fetchMovies } from '../redux/userSlice';
 
 const App = () => {
 
@@ -18,9 +18,7 @@ const App = () => {
   useEffect(() => {
     if (!user.googleId)
       return
-    db.collection(`users`).doc(`${user.googleId}`).collection('watchlist').get().then(doc => dispatch(fetchWatchlist(doc.docs.map(doc => doc.data()))))
-    db.collection(`users`).doc(`${user.googleId}`).collection('favorites').get().then(doc => dispatch(fetchFavorites(doc.docs.map(doc => doc.data()))))
-    db.collection(`users`).doc(`${user.googleId}`).collection('watched').get().then(doc => dispatch(fetchWatched(doc.docs.map(doc => doc.data()))))
+    db.collection(`users`).doc(`${user.googleId}`).collection('movies').get().then(doc => dispatch(fetchMovies(doc.docs.map(doc => doc.data()))))
   }, [user.googleId])
 
   return (
