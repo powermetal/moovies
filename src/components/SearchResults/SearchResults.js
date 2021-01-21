@@ -69,9 +69,9 @@ const SearchResults = (props) => {
                 </div>
             </div>
             <div className="search_results__actions">
-                <AddToButton buttonType="watchlist" active={isInWatchlist(movies2, m.id)} title={m.title} id={m.id} />
-                <AddToButton buttonType="favorites" active={isInFavorites(movies2, m.id)} title={m.title} id={m.id} />
-                <AddToButton buttonType='watched' active={isInWatched(movies2, m.id)} title={m.title} id={m.id} />
+                <AddToButton buttonType="watchlist" title={m.title} id={m.id} />
+                <AddToButton buttonType="favorites" title={m.title} id={m.id} />
+                <AddToButton buttonType='watched' title={m.title} id={m.id} />
             </div>
         </div >
     )

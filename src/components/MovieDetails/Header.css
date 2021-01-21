@@ -95,12 +95,11 @@
     filter: brightness(1.2)
 }
 
-.circle > .MuiSvgIcon-root {
+.circle .MuiSvgIcon-root {
     position: absolute;
-    top: 9px;
-    left: 9px;
+    top: 13px;
+    left: 13px;
     color: white;
-    font-size: 2rem;
 }
 
 .movie_details__tagline {

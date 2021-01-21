@@ -86,6 +86,12 @@ const Navbar = (props) => {
             menuRef.current.focus()
     }, [open])
 
+    const handleBlur = (e) => {
+        if (!e.currentTarget.contains(e.relatedTarget)) {
+            setOpen(false)
+        }
+    }
+
     const renderButton = () => {
         if (signedIn)
             return (
@@ -96,9 +102,9 @@ const Navbar = (props) => {
                         <DropDownMenu
                             ref={menuRef}
                             active={open}
-                            blur={() => setOpen(false)}
+                            blur={handleBlur}
                             items={[
-                                { value: 'Profile', path: '/', icon: <AccountCircleIcon /> },
+                                { value: 'Profile', path: '/profile', icon: <AccountCircleIcon />, action: () => setOpen(false) },
                                 { value: 'Logout', icon: <ExitToAppIcon />, action: logoutMenu }
                             ]}
                         />

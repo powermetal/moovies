@@ -63,9 +63,9 @@ const Header = ({ movieDetails, onPlayTrailer }) => {
                         <div className="userScore">
                             <CircularProgressBar rating={formatScore()} />
                         </div>
-                        <AddToButton active={isInWatchlist(movies, movieDetails.id)} buttonType='watchlist' title={movieDetails.title} id={movieDetails.id} />
-                        <AddToButton active={isInFavorites(movies, movieDetails.id)} buttonType='favorites' title={movieDetails.title} id={movieDetails.id} />
-                        <AddToButton active={isInWatched(movies, movieDetails.id)} buttonType='watched' title={movieDetails.title} id={movieDetails.id} />
+                        <div className='circle'><AddToButton buttonType='watchlist' title={movieDetails.title} id={movieDetails.id} /></div>
+                        <div className='circle'><AddToButton buttonType='favorites' title={movieDetails.title} id={movieDetails.id} /></div>
+                        <div className='circle'><AddToButton buttonType='watched' title={movieDetails.title} id={movieDetails.id} /></div>
                         {renderTrailer()}
                     </div>
                     <div className="movie_details__tagline">

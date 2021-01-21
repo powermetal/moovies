@@ -69,6 +69,12 @@ export const isSignIn = state => state.user.googleId ? true : false
 
 export const selectMovies = state => state.user.movies
 
+export const selectWatchlist = state => state.user.movies.filter(m => m.watchlist)
+
+export const selectFavorite = state => state.user.movies.filter(m => m.favorite)
+
+export const selectWatched = state => state.user.movies.filter(m => m.watched)
+
 export const selectUser = state => state.user
 
 export default userSlice.reducer

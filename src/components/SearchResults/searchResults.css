@@ -63,11 +63,15 @@
 .search_results__actions {
     display: flex;
     justify-content: space-around;
-    padding-right: 20px;
+    padding: 20px;
     flex-direction: column;
     background-color: #455782;
 }
 
+.MuiSvgIcon-root{
+    color: white;
+    cursor: pointer;
+}
 
 @media screen and (max-width: 1360px) {
     .search_results__overview{
