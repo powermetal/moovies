@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 const MovieList = ({ items }) => {
 
-    const pageLimit = 10
+    const pageLimit = 8
 
     const getDefaultState = () => {
         return Object.entries(items).find(([k, i]) => i.default)[0]
@@ -62,7 +62,7 @@ const MovieList = ({ items }) => {
                     <Pagination key={tab} pageLimit={pageLimit} totalRecords={items[tab].movies.length} onPageChanged={handlePageChange} />
                 </div>
             </div>
-            <div>
+            <div className="movielist__items">
                 {renderList()}
             </div>
         </div>

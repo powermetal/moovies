@@ -1,0 +1,43 @@
+.userHeader {
+    width: 100%;
+    background: linear-gradient(to bottom, #2c354c 50%, white 0%); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.userHeader__avatar {
+    margin-right: 2rem;
+    background-color: #2c354c;
+    padding: 10px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.userHeader__avatar img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.userHeader__userName {
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.userHeader__userData {
+    display: flex;
+}
+
+.userHeader__userData p {
+    margin-right: 1rem;
+    color: rgb(34, 34, 34);
+    font-weight: bold;
+}
+
+.userHeader__userData p span {
+    font-weight: lighter;
+}

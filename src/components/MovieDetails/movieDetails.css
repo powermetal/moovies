@@ -36,3 +36,37 @@
     margin-bottom: 2rem;
     width: 1075px;
 }
+
+@media screen and (max-width: 768px) {
+    .movie_details__main {
+        max-width: 100%;
+        grid-template: auto /  1fr;
+        margin-top: 2rem; 
+    }
+    
+    .movie_details__people {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    .movie_details__img {
+        grid-column: 1;
+        grid-row: 3;
+        height: auto;
+        justify-self: flex-start;
+        margin-left: 1rem;
+        width: 90vw;
+    }
+    
+    .movie_details__right {
+        width: 100%;
+        grid-column: 1;
+        grid-row: 1;
+    }
+    
+    .movie_details__related {
+        grid-column: 1;
+        grid-row: 4;
+        margin-bottom: 2rem;
+    }
+}

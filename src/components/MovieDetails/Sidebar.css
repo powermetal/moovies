@@ -44,3 +44,35 @@
     flex-wrap: wrap;
     margin-top: .5rem;
 }
+
+.movie_details__sidebarData {
+    padding-right: 0;
+}
+
+@media screen and (max-width: 768px) {
+    .movie_details__sidebar {
+        min-width: 90vw;
+        padding: 20px;
+        border-radius: 7px;
+        background-color: #ebf1ff;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        display: flex;
+    }
+
+    .movie_details__sidebarData {
+        padding-right: 2rem;
+    }
+
+    .keywords {
+        margin-bottom: 0;
+    }
+
+    .keywords__list {
+        margin-top: 0;
+    }
+
+    .movie_details__keyword {
+        max-height: 30px;
+    }
+}

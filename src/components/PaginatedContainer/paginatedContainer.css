@@ -43,7 +43,7 @@
 
 .paginated_container__items {
     display: grid; 
-    grid-template: auto / 1fr 1fr 1fr 1fr 1fr;    
+    grid-template: auto / 1fr 1fr 1fr  1fr 1fr;    
 }
 
 .paginated_container__item {
@@ -54,4 +54,15 @@
     width: 1050px;
     font-weight: bold;
     text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+    .paginated_container {
+        width: 90vw;
+        margin-left: 1rem;
+    }
+
+    .paginated_container__items { 
+        grid-template: auto / 1fr 1fr;    
+    }
 }

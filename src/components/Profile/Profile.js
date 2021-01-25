@@ -1,14 +1,16 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import MovieList from '../MovieList/MovieList';
-import { selectFavorite, selectWatched, selectWatchlist } from '../../redux/userSlice';
+import { selectFavorite, selectWatched, selectWatchlist, selectUser } from '../../redux/userSlice';
 import AddToButton from '../AddToButton/AddToButton';
+import UserHeader from '../UserHeader/UserHeader';
 
 const Profile = () => {
 
     const watchlist = useSelector(selectWatchlist)
     const favorite = useSelector(selectFavorite)
     const watched = useSelector(selectWatched)
+    const user = useSelector(selectUser)
 
     const watchlistButton = (movie) => {
         return <AddToButton buttonType="watchlist" title={movie.name} id={movie.id} />
@@ -43,6 +45,7 @@ const Profile = () => {
 
     return (
         <div>
+            <UserHeader userName={user.name} avatar={user.avatar} moviesData={{ watchlist: watchlist.length, favorite: favorite.length, watched: watched.length }} />
             <MovieList items={items} />
         </div>
     )

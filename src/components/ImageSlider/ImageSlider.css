@@ -40,3 +40,18 @@
 .right-arrow {
     right: 0;
 }
+
+@media screen and (max-width: 768px) {
+    .slider {
+        display: flex;
+        align-items: center;
+        width: 90vw;
+        position: relative;
+    }
+    
+    .slider__image {
+        object-fit: cover;
+        border-radius: 7px;
+        width: 90vw;
+    }
+}

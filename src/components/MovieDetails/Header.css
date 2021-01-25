@@ -168,6 +168,10 @@
         margin-bottom: 2rem;
     }
 
+    .movie_details__metadata {
+        padding-top: 1rem;
+    }
+
     .movie_details__overview, .movie_details__director, .movie_details__tagline, .movie_details__title {
         grid-column: 2/3;
     }
